@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MegaWorld RP | Official Price List</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>MegaWorld RP | Cyber Price Matrix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -13,81 +14,112 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --neon-blue: #00f3ff;
+      --neon-purple: #bd00ff;
+      --neon-pink: #ff00c8;
+      --dark-bg: #050518;
+      --panel-bg: rgba(10, 15, 40, 0.7);
+      --panel-border: rgba(0, 200, 255, 0.3);
+      --text-glow: 0 0 10px rgba(0, 243, 255, 0.8);
+    }
+
     body {
-      background: linear-gradient(135deg, #0a0a1a 0%, #0f0f2d 50%, #0a0a1a 100%);
+      background: var(--dark-bg);
       color: #e0e0ff;
       font-family: 'Exo 2', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
+      perspective: 1000px;
     }
 
-    /* Circuit board background */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(0, 150, 255, 0.05) 0%, transparent 2%),
-        radial-gradient(circle at 90% 80%, rgba(100, 0, 255, 0.05) 0%, transparent 2%),
-        linear-gradient(0deg, transparent 24%, rgba(0, 200, 255, 0.03) 25%, rgba(0, 200, 255, 0.03) 26%, transparent 27%, transparent 74%, rgba(0, 200, 255, 0.03) 75%, rgba(0, 200, 255, 0.03) 76%, transparent 77%, transparent),
-        linear-gradient(90deg, transparent 24%, rgba(0, 200, 255, 0.03) 25%, rgba(0, 200, 255, 0.03) 26%, transparent 27%, transparent 74%, rgba(0, 200, 255, 0.03) 75%, rgba(0, 200, 255, 0.03) 76%, transparent 77%, transparent);
-      background-size: 100px 100px;
-      z-index: -1;
-    }
-
-    /* Animated grid overlay */
-    body::after {
-      content: "";
-      position: absolute;
+    /* Holographic grid background */
+    .grid-overlay {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       background: 
-        linear-gradient(rgba(10, 15, 30, 0.7), rgba(5, 10, 25, 0.9)),
-        repeating-linear-gradient(0deg, rgba(0, 150, 255, 0.1) 0px, rgba(0, 150, 255, 0.1) 1px, transparent 1px, transparent 20px),
-        repeating-linear-gradient(90deg, rgba(0, 150, 255, 0.1) 0px, rgba(0, 150, 255, 0.1) 1px, transparent 1px, transparent 20px);
-      z-index: -1;
+        linear-gradient(rgba(5, 5, 24, 0.9), rgba(2, 0, 36, 0.95)),
+        repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 150, 255, 0.05) 2px, rgba(0, 150, 255, 0.05) 3px),
+        repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0, 150, 255, 0.05) 2px, rgba(0, 150, 255, 0.05) 3px);
+      background-size: 100px 100px;
+      z-index: -3;
+      animation: gridMove 30s infinite linear;
     }
 
-    /* Floating particles */
-    .particles {
-      position: absolute;
-      top: 0;
-      left: 0;
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 100px 100px; }
+    }
+
+    /* Particle container */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+
+    /* Floating holograms */
+    .holograms {
+      position: fixed;
       width: 100%;
       height: 100%;
       z-index: -1;
-      overflow: hidden;
+      pointer-events: none;
     }
 
-    .particle {
+    .hologram {
       position: absolute;
       border-radius: 50%;
-      background: rgba(0, 200, 255, 0.3);
-      box-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
-      animation: float 15s infinite linear;
+      opacity: 0.3;
+      filter: blur(40px);
+      animation: floatHologram 25s infinite linear;
     }
 
-    @keyframes float {
-      0% { transform: translateY(0) translateX(0); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+    .hologram:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      background: var(--neon-purple);
+      top: 10%;
+      left: 5%;
+    }
+
+    .hologram:nth-child(2) {
+      width: 400px;
+      height: 400px;
+      background: var(--neon-blue);
+      top: 60%;
+      left: 80%;
+    }
+
+    .hologram:nth-child(3) {
+      width: 250px;
+      height: 250px;
+      background: var(--neon-pink);
+      top: 30%;
+      left: 70%;
+    }
+
+    @keyframes floatHologram {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(100px, -50px); }
+      50% { transform: translate(-50px, 80px); }
+      75% { transform: translate(80px, 50px); }
     }
 
     header {
-      background: linear-gradient(90deg, rgba(0, 150, 255, 0.2) 0%, rgba(100, 0, 255, 0.3) 100%);
-      padding: 30px 20px;
+      background: linear-gradient(90deg, rgba(0, 150, 255, 0.2) 0%, rgba(189, 0, 255, 0.3) 100%);
+      padding: 40px 20px;
       text-align: center;
-      border-bottom: 1px solid rgba(0, 200, 255, 0.5);
-      box-shadow: 0 0 30px rgba(0, 150, 255, 0.3);
+      border-bottom: 1px solid rgba(0, 243, 255, 0.5);
+      box-shadow: 0 0 50px rgba(0, 150, 255, 0.5);
       position: relative;
       overflow: hidden;
+      transform-style: preserve-3d;
     }
 
     header::before {
@@ -97,8 +129,8 @@
       left: -100%;
       width: 200%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      animation: shine 3s infinite;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shine 4s infinite;
     }
 
     @keyframes shine {
@@ -106,44 +138,73 @@
       100% { left: 100%; }
     }
 
+    .header-content {
+      position: relative;
+      z-index: 2;
+      transform: translateZ(50px);
+    }
+
     header h1 {
       margin: 0;
-      font-size: 2.8rem;
+      font-size: 4rem;
       font-family: 'Orbitron', sans-serif;
       font-weight: 900;
-      letter-spacing: 2px;
+      letter-spacing: 4px;
       text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(0, 200, 255, 0.8), 0 0 20px rgba(100, 0, 255, 0.8);
-      position: relative;
-      z-index: 1;
+      text-shadow: 
+        0 0 15px rgba(0, 243, 255, 0.8), 
+        0 0 30px rgba(189, 0, 255, 0.8),
+        0 0 45px rgba(189, 0, 255, 0.6);
+      background: linear-gradient(90deg, #00f3ff, #bd00ff, #ff00c8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
     }
 
     .subtitle {
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.2rem;
-      margin-top: 10px;
-      letter-spacing: 1px;
+      font-size: 1.5rem;
+      letter-spacing: 3px;
       color: #a0f0ff;
-      text-shadow: 0 0 5px rgba(0, 200, 255, 0.5);
+      text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .subtitle::after {
+      content: "";
+      display: block;
+      width: 200px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #00f3ff, transparent);
+      margin: 15px auto;
+      border-radius: 50%;
+      filter: blur(1px);
     }
 
     .container {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
+      max-width: 1400px;
+      margin: 60px auto;
+      padding: 0 30px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      transform-style: preserve-3d;
     }
 
     .category {
-      background: rgba(10, 15, 40, 0.7);
-      border: 1px solid rgba(0, 200, 255, 0.3);
-      border-radius: 15px;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(0, 243, 255, 0.2);
       position: relative;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      transform: translateZ(30px);
+      backdrop-filter: blur(10px);
+      transform-style: preserve-3d;
     }
 
     .category::before {
@@ -152,51 +213,81 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 5px;
-      background: linear-gradient(90deg, #00c6ff, #0072ff, #6a11cb);
+      height: 6px;
+      background: linear-gradient(90deg, #00c6ff, #0072ff, #bd00ff);
+      box-shadow: 0 0 15px rgba(0, 198, 255, 0.7);
+    }
+
+    .category::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
     }
 
     .category:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0, 150, 255, 0.4);
+      transform: translateY(-15px) translateZ(50px);
+      box-shadow: 
+        0 25px 50px rgba(0, 150, 255, 0.6),
+        0 0 50px rgba(189, 0, 255, 0.5);
+    }
+
+    .category:hover::after {
+      opacity: 1;
     }
 
     .category-header {
-      background: rgba(0, 20, 40, 0.8);
-      padding: 20px;
-      border-bottom: 1px solid rgba(0, 200, 255, 0.3);
+      background: rgba(0, 10, 30, 0.8);
+      padding: 25px;
+      border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+      position: relative;
+      overflow: hidden;
     }
 
     .category-header h2 {
       color: #00c6ff;
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.8rem;
+      font-size: 2rem;
       margin: 0;
-      letter-spacing: 1px;
-      text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+      letter-spacing: 2px;
+      text-shadow: var(--text-glow);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
+      position: relative;
+      z-index: 2;
     }
 
-    .category-header h2 i {
-      color: #6a11cb;
-      text-shadow: 0 0 10px rgba(106, 17, 203, 0.7);
+    .category-header i {
+      color: #bd00ff;
+      text-shadow: 0 0 15px rgba(189, 0, 255, 0.8);
+      font-size: 1.8rem;
     }
 
     .items {
-      padding: 20px;
+      padding: 25px;
+      position: relative;
     }
 
     .item {
-      margin: 15px 0;
-      padding: 15px;
+      margin: 18px 0;
+      padding: 18px;
       background: rgba(20, 30, 60, 0.5);
-      border-radius: 10px;
-      border-left: 3px solid #00c6ff;
-      transition: all 0.3s ease;
+      border-radius: 12px;
+      border-left: 4px solid var(--neon-blue);
+      transition: all 0.4s ease;
       position: relative;
       overflow: hidden;
+      transform-style: preserve-3d;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .item::before {
@@ -206,39 +297,61 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(0, 200, 255, 0.1), transparent);
+      background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.1), transparent);
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.4s ease;
     }
 
     .item:hover {
-      background: rgba(30, 50, 90, 0.6);
-      transform: translateX(5px);
-      box-shadow: 0 0 15px rgba(0, 150, 255, 0.3);
+      background: rgba(30, 50, 100, 0.7);
+      transform: translateX(10px) translateZ(20px);
+      box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
+      border-left-color: var(--neon-pink);
     }
 
     .item:hover::before {
       opacity: 1;
     }
 
+    .item .name {
+      flex: 1;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
     .item .price {
       color: #00ffaa;
-      font-weight: 600;
-      text-shadow: 0 0 5px rgba(0, 255, 170, 0.5);
-      float: right;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-shadow: 0 0 8px rgba(0, 255, 170, 0.7);
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px 15px;
+      border-radius: 30px;
+      border: 1px solid rgba(0, 255, 170, 0.3);
+      min-width: 120px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .item:hover .price {
+      background: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 15px rgba(0, 255, 170, 0.5);
+      transform: scale(1.05);
     }
 
     .note {
       background: rgba(150, 0, 0, 0.3);
       border: 1px solid rgba(255, 50, 50, 0.5);
-      border-radius: 10px;
-      padding: 20px;
-      margin: 30px auto;
-      max-width: 800px;
+      border-radius: 15px;
+      padding: 25px;
+      margin: 40px auto;
+      max-width: 900px;
       text-align: center;
-      box-shadow: 0 0 20px rgba(255, 50, 50, 0.3);
+      box-shadow: 0 0 30px rgba(255, 50, 50, 0.4);
       position: relative;
       overflow: hidden;
+      transform: translateZ(40px);
+      backdrop-filter: blur(5px);
     }
 
     .note::before {
@@ -248,239 +361,492 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 50, 50, 0.2), transparent);
-      animation: shine 3s infinite;
+      background: linear-gradient(90deg, transparent, rgba(255, 50, 50, 0.3), transparent);
+      animation: shine 4s infinite;
     }
 
     .note p {
       color: #ff6b6b;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       margin: 0;
-      text-shadow: 0 0 5px rgba(255, 107, 107, 0.7);
+      text-shadow: 0 0 8px rgba(255, 107, 107, 0.9);
       position: relative;
       z-index: 1;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .note i {
+      margin-right: 10px;
+      font-size: 1.5rem;
     }
 
     footer {
       text-align: center;
-      padding: 30px 20px;
+      padding: 40px 20px;
       color: #888;
-      font-size: 0.9rem;
+      font-size: 1rem;
       background: rgba(5, 10, 25, 0.8);
       border-top: 1px solid rgba(0, 150, 255, 0.2);
       position: relative;
+      transform-style: preserve-3d;
+    }
+
+    .tech-logo {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(0, 243, 255, 0.9);
+      transform: translateZ(30px);
     }
 
     .copyright {
       font-family: 'Orbitron', sans-serif;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       color: #a0a0ff;
-      text-shadow: 0 0 5px rgba(160, 160, 255, 0.5);
+      text-shadow: 0 0 10px rgba(160, 160, 255, 0.7);
+      font-size: 1.1rem;
+      transform: translateZ(20px);
     }
 
-    .tech-logo {
-      font-size: 2rem;
-      margin-bottom: 15px;
-      text-shadow: 0 0 10px rgba(0, 200, 255, 0.8);
+    .matrix-code {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(transparent 90%, rgba(0, 243, 255, 0.1) 100%);
+      background-size: 100% 4px;
+      z-index: -1;
+      animation: matrixScroll 20s infinite linear;
+      opacity: 0.3;
+    }
+
+    @keyframes matrixScroll {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 100%; }
+    }
+
+    /* Data stream effect */
+    .data-stream {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--neon-blue), transparent);
+      box-shadow: 0 0 30px var(--neon-blue);
+      opacity: 0.7;
+      z-index: -1;
+      animation: dataPulse 3s infinite alternate;
+    }
+
+    @keyframes dataPulse {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.8; }
+    }
+
+    /* 3D floating effect */
+    @keyframes float3d {
+      0%, 100% { transform: translate(0, 0) translateZ(0); }
+      25% { transform: translate(5px, -5px) translateZ(20px); }
+      50% { transform: translate(-5px, 5px) translateZ(10px); }
+      75% { transform: translate(3px, -3px) translateZ(15px); }
+    }
+
+    .float-effect {
+      animation: float3d 8s infinite ease-in-out;
     }
 
     /* Responsive adjustments */
+    @media (max-width: 1200px) {
+      header h1 {
+        font-size: 3.5rem;
+      }
+    }
+
     @media (max-width: 768px) {
       header h1 {
-        font-size: 2.2rem;
+        font-size: 2.8rem;
       }
       
       .container {
         grid-template-columns: 1fr;
+        padding: 0 20px;
+      }
+      
+      .category {
+        transform: translateZ(20px);
+      }
+      
+      .category:hover {
+        transform: translateY(-10px) translateZ(30px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+      
+      .subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .category-header h2 {
+        font-size: 1.7rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Floating particles background -->
-  <div class="particles" id="particles"></div>
+  <!-- Background elements -->
+  <div class="grid-overlay"></div>
+  <div id="particles-js"></div>
+  <div class="holograms">
+    <div class="hologram"></div>
+    <div class="hologram"></div>
+    <div class="hologram"></div>
+  </div>
+  <div class="data-stream"></div>
   
-  <header>
-    <h1>MegaWorld RP</h1>
-    <div class="subtitle">OFFICIAL PRICE LIST</div>
+  <header class="float-effect">
+    <div class="header-content">
+      <h1>MEGA<span style="color:#ff00c8">WORLD</span> RP</h1>
+      <div class="subtitle">NEURAL PRICING MATRIX</div>
+    </div>
   </header>
   
   <div class="container">
     <!-- Custom Clothing & Gang Packages -->
-    <div class="category">
+    <div class="category float-effect">
       <div class="category-header">
         <h2><i class="fas fa-tshirt"></i> CUSTOM CLOTHING & GANG</h2>
       </div>
       <div class="items">
-        <div class="item">Custom Gang T-Shirt <span class="price">$10</span></div>
-        <div class="item">Custom Gang Pants <span class="price">$10</span></div>
-        <div class="item">Custom Gang Shoes <span class="price">$10</span></div>
-        <div class="item">Full Gang Outfit Bundle <span class="price">$30</span></div>
-        <div class="item">Custom Gang Flag Design <span class="price">$25</span></div>
-        <div class="item">Complete Gang Package <span class="price">$75</span></div>
+        <div class="item">
+          <div class="name">Custom Gang T-Shirt</div>
+          <div class="price">$10</div>
+        </div>
+        <div class="item">
+          <div class="name">Custom Gang Pants</div>
+          <div class="price">$10</div>
+        </div>
+        <div class="item">
+          <div class="name">Custom Gang Shoes</div>
+          <div class="price">$10</div>
+        </div>
+        <div class="item">
+          <div class="name">Full Gang Outfit Bundle</div>
+          <div class="price">$30</div>
+        </div>
+        <div class="item">
+          <div class="name">Custom Gang Flag Design</div>
+          <div class="price">$25</div>
+        </div>
+        <div class="item">
+          <div class="name">Complete Gang Package</div>
+          <div class="price">$75</div>
+        </div>
       </div>
     </div>
     
     <!-- Vehicle & Dealership Options -->
-    <div class="category">
+    <div class="category float-effect">
       <div class="category-header">
         <h2><i class="fas fa-car"></i> VEHICLES & DEALERSHIPS</h2>
       </div>
       <div class="items">
-        <div class="item">Player-Owned Dealership License <span class="price">$150</span></div>
-        <div class="item">Custom Dealership MLO <span class="price">$100</span></div>
-        <div class="item">Add Car to Dealership <span class="price">$25 each</span></div>
-        <div class="item">1 of 1 Exclusive Car <span class="price">$200</span></div>
-        <div class="item">Donator Car (Non-1of1) <span class="price">$50</span></div>
-        <div class="item">Extra Cars (10 Pack) <span class="price">$200</span></div>
-        <div class="item">Infinite Stock Upgrade <span class="price">$350</span></div>
+        <div class="item">
+          <div class="name">Player-Owned Dealership License</div>
+          <div class="price">$150</div>
+        </div>
+        <div class="item">
+          <div class="name">Custom Dealership MLO</div>
+          <div class="price">$100</div>
+        </div>
+        <div class="item">
+          <div class="name">Add Car to Dealership</div>
+          <div class="price">$25 each</div>
+        </div>
+        <div class="item">
+          <div class="name">1 of 1 Exclusive Car</div>
+          <div class="price">$200</div>
+        </div>
+        <div class="item">
+          <div class="name">Donator Car (Non-1of1)</div>
+          <div class="price">$50</div>
+        </div>
+        <div class="item">
+          <div class="name">Extra Cars (10 Pack)</div>
+          <div class="price">$200</div>
+        </div>
+        <div class="item">
+          <div class="name">Infinite Stock Upgrade</div>
+          <div class="price">$350</div>
+        </div>
       </div>
     </div>
     
     <!-- Mechanic Shops / Player Shops -->
-    <div class="category">
+    <div class="category float-effect">
       <div class="category-header">
         <h2><i class="fas fa-tools"></i> SHOPS & WORKSHOPS</h2>
       </div>
       <div class="items">
-        <div class="item">Mechanic Shop License <span class="price">$100</span></div>
-        <div class="item">Player-Owned Shop <span class="price">$75</span></div>
-        <div class="item">Add Extra Items <span class="price">$10 per item</span></div>
-        <div class="item">Custom Chain Import <span class="price">from $50</span></div>
-        <div class="item">Infinite Stock Option <span class="price">$350</span></div>
+        <div class="item">
+          <div class="name">Mechanic Shop License</div>
+          <div class="price">$100</div>
+        </div>
+        <div class="item">
+          <div class="name">Player-Owned Shop</div>
+          <div class="price">$75</div>
+        </div>
+        <div class="item">
+          <div class="name">Add Extra Items</div>
+          <div class="price">$10 per item</div>
+        </div>
+        <div class="item">
+          <div class="name">Custom Chain Import</div>
+          <div class="price">from $50</div>
+        </div>
+        <div class="item">
+          <div class="name">Infinite Stock Option</div>
+          <div class="price">$350</div>
+        </div>
       </div>
     </div>
     
     <!-- MLO Houses / Properties -->
-    <div class="category">
+    <div class="category float-effect">
       <div class="category-header">
         <h2><i class="fas fa-home"></i> PROPERTIES & HOUSING</h2>
       </div>
       <div class="items">
-        <div class="item">Custom MLO House <span class="price">$150</span></div>
-        <div class="item">Custom Interior Design <span class="price">+$50</span></div>
-        <div class="item">Property Ownership Transfer <span class="price">$25</span></div>
+        <div class="item">
+          <div class="name">Custom MLO House</div>
+          <div class="price">$150</div>
+        </div>
+        <div class="item">
+          <div class="name">Custom Interior Design</div>
+          <div class="price">+$50</div>
+        </div>
+        <div class="item">
+          <div class="name">Property Ownership Transfer</div>
+          <div class="price">$25</div>
+        </div>
       </div>
     </div>
     
     <!-- Weapons & Gun Packs -->
-    <div class="category">
+    <div class="category float-effect">
       <div class="category-header">
         <h2><i class="fas fa-gun"></i> WEAPONS & EQUIPMENT</h2>
       </div>
       <div class="items">
-        <div class="item">Custom 1 of 1 Gun <span class="price">$125</span></div>
-        <div class="item">Donator Weapon Pack <span class="price">$75</span></div>
-        <div class="item">Extra Ammo Pack (1000 Rounds) <span class="price">$20</span></div>
+        <div class="item">
+          <div class="name">Custom 1 of 1 Gun</div>
+          <div class="price">$125</div>
+        </div>
+        <div class="item">
+          <div class="name">Donator Weapon Pack</div>
+          <div class="price">$75</div>
+        </div>
+        <div class="item">
+          <div class="name">Extra Ammo Pack (1000 Rounds)</div>
+          <div class="price">$20</div>
+        </div>
       </div>
     </div>
     
     <!-- In-Game Money Packages -->
-    <div class="category">
+    <div class="category float-effect">
       <div class="category-header">
         <h2><i class="fas fa-coins"></i> IN-GAME CURRENCY</h2>
       </div>
       <div class="items">
-        <div class="item">$25 = $2,000,000 <span class="price"></span></div>
-        <div class="item">$50 = $5,000,000 <span class="price"></span></div>
-        <div class="item">$100 = $12,000,000 <span class="price"></span></div>
+        <div class="item">
+          <div class="name">$25 = $2,000,000</div>
+          <div class="price"></div>
+        </div>
+        <div class="item">
+          <div class="name">$50 = $5,000,000</div>
+          <div class="price"></div>
+        </div>
+        <div class="item">
+          <div class="name">$100 = $12,000,000</div>
+          <div class="price"></div>
+        </div>
       </div>
     </div>
     
     <!-- Exclusive RP Roles -->
-    <div class="category">
+    <div class="category float-effect">
       <div class="category-header">
         <h2><i class="fas fa-user-secret"></i> EXCLUSIVE RP ROLES</h2>
       </div>
       <div class="items">
-        <div class="item">Military Role <span class="price">$100</span></div>
-        <div class="item">Police Chief / Sheriff <span class="price">$150</span></div>
-        <div class="item">Gang Leader Role <span class="price">$75</span></div>
-        <div class="item">Custom Mafia/Biker Club Pack <span class="price">$200</span></div>
+        <div class="item">
+          <div class="name">Military Role</div>
+          <div class="price">$100</div>
+        </div>
+        <div class="item">
+          <div class="name">Police Chief / Sheriff</div>
+          <div class="price">$150</div>
+        </div>
+        <div class="item">
+          <div class="name">Gang Leader Role</div>
+          <div class="price">$75</div>
+        </div>
+        <div class="item">
+          <div class="name">Custom Mafia/Biker Club Pack</div>
+          <div class="price">$200</div>
+        </div>
       </div>
     </div>
     
     <!-- Extra & Popular Services -->
-    <div class="category">
+    <div class="category float-effect">
       <div class="category-header">
         <h2><i class="fas fa-star"></i> PREMIUM SERVICES</h2>
       </div>
       <div class="items">
-        <div class="item">Priority Queue (30 Days) <span class="price">$50</span></div>
-        <div class="item">Permanent Priority Queue <span class="price">$150</span></div>
-        <div class="item">Exclusive RP Business <span class="price">from $250</span></div>
-        <div class="item">Custom RP Job Creation <span class="price">$300</span></div>
-        <div class="item">Custom Pet <span class="price">$50</span></div>
+        <div class="item">
+          <div class="name">Priority Queue (30 Days)</div>
+          <div class="price">$50</div>
+        </div>
+        <div class="item">
+          <div class="name">Permanent Priority Queue</div>
+          <div class="price">$150</div>
+        </div>
+        <div class="item">
+          <div class="name">Exclusive RP Business</div>
+          <div class="price">from $250</div>
+        </div>
+        <div class="item">
+          <div class="name">Custom RP Job Creation</div>
+          <div class="price">$300</div>
+        </div>
+        <div class="item">
+          <div class="name">Custom Pet</div>
+          <div class="price">$50</div>
+        </div>
       </div>
     </div>
     
     <!-- Premium Packages -->
-    <div class="category">
+    <div class="category float-effect">
       <div class="category-header">
         <h2><i class="fas fa-crown"></i> ELITE PACKAGES</h2>
       </div>
       <div class="items">
-        <div class="item">Kingpin Pack <span class="price">$500</span></div>
-        <div class="item">Starter Gang Pack <span class="price">$50</span></div>
-        <div class="item">Celebrity Status <span class="price">$300</span></div>
-        <div class="item">Private Island MLO <span class="price">$400</span></div>
+        <div class="item">
+          <div class="name">Kingpin Pack</div>
+          <div class="price">$500</div>
+        </div>
+        <div class="item">
+          <div class="name">Starter Gang Pack</div>
+          <div class="price">$50</div>
+        </div>
+        <div class="item">
+          <div class="name">Celebrity Status</div>
+          <div class="price">$300</div>
+        </div>
+        <div class="item">
+          <div class="name">Private Island MLO</div>
+          <div class="price">$400</div>
+        </div>
       </div>
     </div>
   </div>
   
-  <div class="note">
+  <div class="note float-effect">
     <p><i class="fas fa-exclamation-triangle"></i> All purchases are final. Violations of RP rules can result in revocation without refund.</p>
   </div>
   
-  <footer>
+  <footer class="float-effect">
     <div class="tech-logo">
       <i class="fas fa-atom"></i>
     </div>
     <div class="copyright">MegaWorld RP &copy; 2025. All rights reserved.</div>
+    <div class="matrix-code"></div>
   </footer>
 
   <script>
-    // Create floating particles
-    function createParticles() {
-      const particlesContainer = document.getElementById('particles');
-      const particleCount = 30;
+    // Initialize particles.js
+    document.addEventListener('DOMContentLoaded', function() {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 150, density: { enable: true, value_area: 800 } },
+          color: { value: "#00f3ff" },
+          shape: { type: "circle" },
+          opacity: { value: 0.3, random: true },
+          size: { value: 3, random: true },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#bd00ff",
+            opacity: 0.2,
+            width: 1
+          },
+          move: {
+            enable: true,
+            speed: 2,
+            direction: "none",
+            random: true,
+            straight: false,
+            out_mode: "out",
+            bounce: false
+          }
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: { enable: true, mode: "repulse" },
+            onclick: { enable: true, mode: "push" },
+            resize: true
+          },
+          modes: {
+            repulse: { distance: 100, duration: 0.4 },
+            push: { particles_nb: 4 }
+          }
+        },
+        retina_detect: true
+      });
+    });
+
+    // Add floating effect to all items
+    document.querySelectorAll('.item').forEach((item, index) => {
+      // Random delay for staggered animations
+      item.style.animationDelay = `${index * 0.05}s`;
       
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-        // Random size
-        const size = Math.random() * 6 + 2;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        // Random position
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-        
-        // Random animation delay
-        particle.style.animationDelay = `${Math.random() * 15}s`;
-        
-        // Random color
-        const colors = ['rgba(0, 200, 255, 0.4)', 'rgba(100, 0, 255, 0.4)', 'rgba(0, 255, 200, 0.4)'];
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        particle.style.background = randomColor;
-        
-        particlesContainer.appendChild(particle);
-      }
-    }
-    
-    // Initialize on load
-    window.addEventListener('load', createParticles);
-    
-    // Add subtle hover effect to all items
-    document.querySelectorAll('.item').forEach(item => {
+      // Add hover effect
       item.addEventListener('mouseenter', function() {
-        this.style.boxShadow = '0 0 20px rgba(0, 200, 255, 0.4)';
+        this.style.boxShadow = '0 0 25px rgba(0, 243, 255, 0.6)';
       });
       
       item.addEventListener('mouseleave', function() {
         this.style.boxShadow = '';
+      });
+    });
+
+    // Add subtle glow effect to all prices
+    document.querySelectorAll('.price').forEach(price => {
+      price.addEventListener('mouseenter', function() {
+        this.style.textShadow = '0 0 15px rgba(0, 255, 170, 0.9)';
+      });
+      
+      price.addEventListener('mouseleave', function() {
+        this.style.textShadow = '0 0 8px rgba(0, 255, 170, 0.7)';
+      });
+    });
+
+    // Add parallax effect on mouse move
+    document.addEventListener('mousemove', function(e) {
+      const x = (window.innerWidth - e.pageX * 2) / 100;
+      const y = (window.innerHeight - e.pageY * 2) / 100;
+      
+      document.querySelectorAll('.float-effect').forEach(element => {
+        element.style.transform = `translate(${x/5}px, ${y/5}px) translateZ(20px)`;
       });
     });
   </script>
