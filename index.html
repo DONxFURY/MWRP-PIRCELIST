@@ -288,6 +288,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      cursor: pointer;
     }
 
     .item::before {
@@ -337,6 +338,58 @@
       background: rgba(0, 0, 0, 0.5);
       box-shadow: 0 0 15px rgba(0, 255, 170, 0.5);
       transform: scale(1.05);
+    }
+    
+    /* Package information tooltip */
+    .item-info {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      width: 100%;
+      background: rgba(10, 20, 50, 0.95);
+      border: 1px solid var(--neon-blue);
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 0.9rem;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+    }
+    
+    .item:hover .item-info {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    
+    .item-info::before {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 20px;
+      border-width: 8px;
+      border-style: solid;
+      border-color: transparent transparent var(--neon-blue) transparent;
+    }
+    
+    .item-info ul {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+    
+    .item-info li {
+      margin-bottom: 5px;
+      color: #c0d0ff;
+    }
+    
+    .item-info strong {
+      color: var(--neon-blue);
+      display: block;
+      margin-bottom: 5px;
     }
 
     .note {
@@ -481,6 +534,17 @@
       .category:hover {
         transform: translateY(-10px) translateZ(30px);
       }
+      
+      .item-info {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-top: 10px;
+      }
+      
+      .item-info::before {
+        display: none;
+      }
     }
 
     @media (max-width: 480px) {
@@ -494,6 +558,11 @@
       
       .category-header h2 {
         font-size: 1.7rem;
+      }
+      
+      .item .price {
+        min-width: 90px;
+        font-size: 1rem;
       }
     }
   </style>
@@ -526,26 +595,81 @@
         <div class="item">
           <div class="name">Custom Gang T-Shirt</div>
           <div class="price">$15</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Fully custom gang T-shirt design</li>
+              <li>Visible gang logo and colors</li>
+              <li>Unlimited in-game distribution</li>
+              <li>Staff approval required</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Custom Gang Pants</div>
           <div class="price">$15</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Matching gang pants design</li>
+              <li>Complementary to T-shirt</li>
+              <li>Custom color patterns</li>
+              <li>Visible gang insignia</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Custom Gang Shoes</div>
           <div class="price">$15</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Exclusive gang footwear</li>
+              <li>Custom color schemes</li>
+              <li>Gang logo placement</li>
+              <li>Available to all gang members</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Full Gang Outfit Bundle</div>
           <div class="price">$30</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Complete gang uniform set</li>
+              <li>Includes T-shirt, pants, and shoes</li>
+              <li>20% discount vs buying separately</li>
+              <li>Priority design approval</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Custom Gang Flag Design</div>
           <div class="price">$25</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Unique gang flag design</li>
+              <li>Placeable in gang territory</li>
+              <li>Visible symbol of gang presence</li>
+              <li>Customizable dimensions</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Complete Gang Package</div>
           <div class="price">$100</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>All gang clothing items</li>
+              <li>Custom gang flag</li>
+              <li>Gang vehicle skin</li>
+              <li>Priority support</li>
+              <li>Exclusive gang tag</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -559,30 +683,80 @@
         <div class="item">
           <div class="name">Player-Owned Dealership License</div>
           <div class="price">$150</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Own and operate a car dealership</li>
+              <li>Sell vehicles to other players</li>
+              <li>Customize dealership appearance</li>
+              <li>Set your own prices</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Add Car to Dealership</div>
           <div class="price">$3 each</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Add a new vehicle to your dealership</li>
+              <li>Choose from available models</li>
+              <li>Set custom pricing per vehicle</li>
+              <li>Manage inventory stock</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">1 of 1 Exclusive Car</div>
           <div class="price">$45</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Completely unique vehicle</li>
+              <li>Custom paint job and features</li>
+              <li>No other player can have this model</li>
+              <li>VIP vehicle registration</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Donator Car (Non-1of1)</div>
           <div class="price">$20</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Special donator vehicle</li>
+              <li>Customizable features</li>
+              <li>Exclusive to donators</li>
+              <li>Limited availability</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Extra Shop Cars (10 Pack)</div>
           <div class="price">$65</div>
-        </div>
-        <div class="item">
-          <div class="name">Extra Cars (10 Pack)</div>
-          <div class="price">$65</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Add 10 vehicles to your dealership</li>
+              <li>30% discount vs individual pricing</li>
+              <li>Mix and match models</li>
+              <li>Expand your inventory quickly</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Infinite Store Stock Upgrade</div>
           <div class="price">$200</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Never run out of vehicle stock</li>
+              <li>Automatically replenishes inventory</li>
+              <li>Eliminate manual restocking</li>
+              <li>Premium dealership feature</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -596,26 +770,67 @@
         <div class="item">
           <div class="name">Mechanic Shop License</div>
           <div class="price">$100</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Operate your own mechanic shop</li>
+              <li>Repair and customize vehicles</li>
+              <li>Hire NPC mechanics</li>
+              <li>Set service prices</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Player-Owned Shop</div>
           <div class="price">$35</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Open your own retail business</li>
+              <li>Sell items to other players</li>
+              <li>Choose shop location</li>
+              <li>Customize shop interior</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Add Extra Items</div>
           <div class="price">$5 per item</div>
-        </div>
-        <div class="item">
-          <div class="name">Add Extra Items (10 pack)</div>
-          <div class="price">$5 per item</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Expand your shop's inventory</li>
+              <li>Add new product lines</li>
+              <li>Set custom pricing</li>
+              <li>Manage stock levels</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Custom Chain Import</div>
           <div class="price">from $25</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Import custom jewelry designs</li>
+              <li>Unique chain styles</li>
+              <li>Sell exclusive accessories</li>
+              <li>Price based on complexity</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Infinite Stock Option</div>
           <div class="price">$120</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Never run out of shop items</li>
+              <li>Automatic inventory replenishment</li>
+              <li>Focus on sales, not restocking</li>
+              <li>Premium shop feature</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -629,18 +844,54 @@
         <div class="item">
           <div class="name">MLO House</div>
           <div class="price">$70</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Custom interior layout</li>
+              <li>Unique property features</li>
+              <li>Personalized decoration</li>
+              <li>Secure storage options</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">MLO House Import</div>
           <div class="price">$25</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Import custom house design</li>
+              <li>Must meet server standards</li>
+              <li>Staff approval required</li>
+              <li>Additional customization options</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Property Ownership Transfer</div>
           <div class="price">$20</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Transfer property to another player</li>
+              <li>Maintain all customizations</li>
+              <li>Legal ownership change</li>
+              <li>Staff-mediated process</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
-          <div class="name">Mount Chilid Town</div>
+          <div class="name">Mount Chiliad Town</div>
           <div class="price">$200</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Own a section of Mount Chiliad</li>
+              <li>Build a custom mountain town</li>
+              <li>Exclusive territory rights</li>
+              <li>Special zoning permissions</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -654,14 +905,41 @@
         <div class="item">
           <div class="name">Custom 1 of 1 Gun</div>
           <div class="price">$100</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Completely unique weapon</li>
+              <li>Custom skin and attachments</li>
+              <li>No other player can have this model</li>
+              <li>VIP weapon registration</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Donator Weapon Pack (2 Guns)</div>
           <div class="price">$45</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Two exclusive donator weapons</li>
+              <li>Special skins and modifications</li>
+              <li>Priority access to new releases</li>
+              <li>Comes with custom case</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Extra Ammo Pack (1000 Rounds)</div>
           <div class="price">$20</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>1000 rounds of ammunition</li>
+              <li>Choice of caliber</li>
+              <li>Specialty rounds available</li>
+              <li>Discounted bulk pricing</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -675,14 +953,41 @@
         <div class="item">
           <div class="name">$20 = $500,000</div>
           <div class="price"></div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Instant in-game cash transfer</li>
+              <li>No cooldown period</li>
+              <li>Tax-free transaction</li>
+              <li>Perfect for new players</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">$30 = $700,000</div>
           <div class="price"></div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Better value per dollar</li>
+              <li>Instant bank deposit</li>
+              <li>Includes bonus $50,000</li>
+              <li>No transaction fees</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">$150 = $15,000,000</div>
           <div class="price"></div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Massive wealth package</li>
+              <li>VIP money transfer service</li>
+              <li>Includes $3,000,000 bonus</li>
+              <li>Wealth management consultation</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -696,18 +1001,54 @@
         <div class="item">
           <div class="name">Military Role</div>
           <div class="price">$100</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Access to military base</li>
+              <li>Specialized military vehicles</li>
+              <li>Advanced weaponry access</li>
+              <li>Command structure integration</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Gang Leader Role</div>
           <div class="price">$30</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Found and lead your own gang</li>
+              <li>Gang territory rights</li>
+              <li>Recruitment permissions</li>
+              <li>Gang management tools</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Custom Mafia/Biker Club Pack</div>
           <div class="price">$300</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Create your own crime family</li>
+              <li>Custom clubhouse location</li>
+              <li>Exclusive vehicles and outfits</li>
+              <li>Special criminal enterprise options</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Scammer Role</div>
           <div class="price">$100</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Access to scammer tools</li>
+              <li>Fake identity documents</li>
+              <li>Money laundering options</li>
+              <li>Special undercover contacts</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -721,10 +1062,28 @@
         <div class="item">
           <div class="name">Exclusive RP Business</div>
           <div class="price">from $250</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Create a unique RP business</li>
+              <li>Custom business mechanics</li>
+              <li>Staff-assisted implementation</li>
+              <li>Ongoing business support</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Custom RP Job Creation</div>
           <div class="price">$300</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Design your own in-game job</li>
+              <li>Unique mechanics and payouts</li>
+              <li>Staff development support</li>
+              <li>Job balancing consultation</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -738,14 +1097,42 @@
         <div class="item">
           <div class="name">Kingpin Pack</div>
           <div class="price">$500</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>VIP status in all cities</li>
+              <li>Exclusive kingpin vehicle</li>
+              <li>Custom mansion property</li>
+              <li>Personal bodyguard NPCs</li>
+              <li>Priority support access</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Starter Gang Pack</div>
           <div class="price">$30</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>Gang creation toolkit</li>
+              <li>Basic territory rights</li>
+              <li>Starter weapons package</li>
+              <li>Recruitment assistance</li>
+            </ul>
+          </div>
         </div>
         <div class="item">
           <div class="name">Celebrity Status</div>
           <div class="price">$300</div>
+          <div class="item-info">
+            <strong>Package Details:</strong>
+            <ul>
+              <li>In-game celebrity recognition</li>
+              <li>VIP access to all events</li>
+              <li>Personal paparazzi NPCs</li>
+              <li>Exclusive celebrity perks</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
