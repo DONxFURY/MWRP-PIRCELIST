@@ -22,6 +22,7 @@
       --panel-bg: rgba(10, 15, 40, 0.7);
       --panel-border: rgba(0, 200, 255, 0.3);
       --text-glow: 0 0 10px rgba(0, 243, 255, 0.8);
+      --tooltip-bg: rgba(15, 25, 60, 0.97);
     }
 
     body {
@@ -196,7 +197,7 @@
       background: var(--panel-bg);
       border: 1px solid var(--panel-border);
       border-radius: 20px;
-      overflow: hidden;
+      overflow: visible;
       box-shadow: 
         0 15px 35px rgba(0, 0, 0, 0.5),
         0 0 30px rgba(0, 243, 255, 0.2);
@@ -273,6 +274,7 @@
     .items {
       padding: 25px;
       position: relative;
+      overflow: visible;
     }
 
     .item {
@@ -283,12 +285,11 @@
       border-left: 4px solid var(--neon-blue);
       transition: all 0.4s ease;
       position: relative;
-      overflow: hidden;
-      transform-style: preserve-3d;
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
+      z-index: 1;
     }
 
     .item::before {
@@ -308,6 +309,7 @@
       transform: translateX(10px) translateZ(20px);
       box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
       border-left-color: var(--neon-pink);
+      z-index: 100;
     }
 
     .item:hover::before {
@@ -340,56 +342,88 @@
       transform: scale(1.05);
     }
     
-    /* Package information tooltip */
+    /* NEW TOOLTIP DESIGN - POSITIONED ABOVE ITEMS */
     .item-info {
       position: absolute;
-      top: calc(100% + 10px);
+      bottom: calc(100% + 15px);
       left: 0;
       width: 100%;
-      background: rgba(10, 20, 50, 0.95);
+      background: var(--tooltip-bg);
       border: 1px solid var(--neon-blue);
       border-radius: 10px;
-      padding: 15px;
+      padding: 20px;
       font-size: 0.9rem;
-      z-index: 100;
+      z-index: 200;
       opacity: 0;
       visibility: hidden;
       transform: translateY(10px);
       transition: all 0.3s ease;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 243, 255, 0.3);
       backdrop-filter: blur(5px);
-    }
-    
-    .item:hover .item-info {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
+      pointer-events: none;
+      z-index: 1000;
+      max-height: 250px;
+      overflow-y: auto;
     }
     
     .item-info::before {
       content: "";
       position: absolute;
-      bottom: 100%;
+      top: 100%;
+      left: 20px;
+      border-width: 10px;
+      border-style: solid;
+      border-color: var(--neon-blue) transparent transparent transparent;
+    }
+    
+    .item-info::after {
+      content: "";
+      position: absolute;
+      top: 100%;
       left: 20px;
       border-width: 8px;
       border-style: solid;
-      border-color: transparent transparent var(--neon-blue) transparent;
+      border-color: var(--tooltip-bg) transparent transparent transparent;
+      margin-top: -1px;
+      z-index: 1;
     }
     
     .item-info ul {
       padding-left: 20px;
-      margin: 10px 0;
+      margin: 12px 0;
     }
     
     .item-info li {
-      margin-bottom: 5px;
-      color: #c0d0ff;
+      margin-bottom: 8px;
+      color: #d0e0ff;
+      position: relative;
+    }
+    
+    .item-info li::before {
+      content: "•";
+      color: var(--neon-blue);
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+      text-shadow: 0 0 5px rgba(0, 243, 255, 0.7);
     }
     
     .item-info strong {
       color: var(--neon-blue);
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+      border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+      padding-bottom: 8px;
+    }
+
+    .item:hover .item-info {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
     }
 
     .note {
@@ -537,12 +571,15 @@
       
       .item-info {
         position: relative;
-        top: 0;
+        bottom: auto;
+        top: auto;
         left: 0;
         margin-top: 10px;
+        max-height: 200px;
       }
       
-      .item-info::before {
+      .item-info::before,
+      .item-info::after {
         display: none;
       }
     }
@@ -564,6 +601,27 @@
         min-width: 90px;
         font-size: 1rem;
       }
+      
+      .item-info {
+        max-height: 150px;
+        font-size: 0.85rem;
+      }
+    }
+    
+    /* Animation for tooltip */
+    @keyframes tooltipPop {
+      0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    
+    .item:hover .item-info {
+      animation: tooltipPop 0.3s ease-out forwards;
     }
   </style>
 </head>
@@ -1141,8 +1199,8 @@
   <div class="note float-effect">
     <p><i class="fas fa-exclamation-triangle"></i> All purchases are final. Violations of RP rules can result in revocation without refund.</p>
   </div>
-    <div class="note float-effect">
-    <p><i class="fas fa-exclamation-triangle"></i>MAKE A TICKET IN DISCORD FOR MORE INFOMATION.</p>
+  <div class="note float-effect">
+    <p><i class="fas fa-exclamation-triangle"></i> MAKE A TICKET IN DISCORD FOR MORE INFORMATION.</p>
   </div>
   
   <footer class="float-effect">
@@ -1194,41 +1252,41 @@
         },
         retina_detect: true
       });
-    });
 
-    // Add floating effect to all items
-    document.querySelectorAll('.item').forEach((item, index) => {
-      // Random delay for staggered animations
-      item.style.animationDelay = `${index * 0.05}s`;
-      
-      // Add hover effect
-      item.addEventListener('mouseenter', function() {
-        this.style.boxShadow = '0 0 25px rgba(0, 243, 255, 0.6)';
+      // Add floating effect to all items
+      document.querySelectorAll('.item').forEach((item, index) => {
+        // Random delay for staggered animations
+        item.style.animationDelay = `${index * 0.05}s`;
+        
+        // Add hover effect
+        item.addEventListener('mouseenter', function() {
+          this.style.boxShadow = '0 0 25px rgba(0, 243, 255, 0.6)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+          this.style.boxShadow = '';
+        });
       });
-      
-      item.addEventListener('mouseleave', function() {
-        this.style.boxShadow = '';
-      });
-    });
 
-    // Add subtle glow effect to all prices
-    document.querySelectorAll('.price').forEach(price => {
-      price.addEventListener('mouseenter', function() {
-        this.style.textShadow = '0 0 15px rgba(0, 255, 170, 0.9)';
+      // Add subtle glow effect to all prices
+      document.querySelectorAll('.price').forEach(price => {
+        price.addEventListener('mouseenter', function() {
+          this.style.textShadow = '0 0 15px rgba(0, 255, 170, 0.9)';
+        });
+        
+        price.addEventListener('mouseleave', function() {
+          this.style.textShadow = '0 0 8px rgba(0, 255, 170, 0.7)';
+        });
       });
-      
-      price.addEventListener('mouseleave', function() {
-        this.style.textShadow = '0 0 8px rgba(0, 255, 170, 0.7)';
-      });
-    });
 
-    // Add parallax effect on mouse move
-    document.addEventListener('mousemove', function(e) {
-      const x = (window.innerWidth - e.pageX * 2) / 100;
-      const y = (window.innerHeight - e.pageY * 2) / 100;
-      
-      document.querySelectorAll('.float-effect').forEach(element => {
-        element.style.transform = `translate(${x/5}px, ${y/5}px) translateZ(20px)`;
+      // Add parallax effect on mouse move
+      document.addEventListener('mousemove', function(e) {
+        const x = (window.innerWidth - e.pageX * 2) / 100;
+        const y = (window.innerHeight - e.pageY * 2) / 100;
+        
+        document.querySelectorAll('.float-effect').forEach(element => {
+          element.style.transform = `translate(${x/5}px, ${y/5}px) translateZ(20px)`;
+        });
       });
     });
   </script>
